@@ -14,7 +14,7 @@
 
 	</mvc:annotation-driven>
 
-	<context:component-scan base-package="formationSpringMvc.controller" />
+	<context:component-scan base-package="volresa.controller" />
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<bean
