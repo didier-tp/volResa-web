@@ -10,11 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vol.metier.dao.PassagerDao;
 import vol.metier.dao.ReservationDao;
-import vol.metier.model.ClientPhysique;
 import vol.metier.model.Passager;
 import vol.metier.model.Reservation;
-import vol.metier.model.TitreMoral;
-import vol.metier.model.TitrePhysique;
 
 @Controller
 @RequestMapping("/passager")
@@ -52,9 +49,11 @@ public class PassagerController {
 	private ModelAndView savePassager(Passager p) {
 		if (p.getId() == null)
 			daoPassager.create(p);
-		else
+		else {
 			daoPassager.update(p);
-		return list();
+		}
+		return new ModelAndView("redirect:list");
+
 	}
 	
 	@RequestMapping("/edit")
@@ -68,5 +67,8 @@ public class PassagerController {
 		return modelAndView;
 	}
 	
+
+	
+
 
 }
