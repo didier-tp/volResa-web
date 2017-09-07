@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,23 +8,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+
 <body>
-	<h1>liste des clients en base</h1>
+	<h1>liste des passagers</h1>
 	<table border="1">
 
 		<tr>
 			<th>nom</th>
-			<th>numero de telephone</th>
-			<th>numero de fax</th>
-			<th>email</th>
-
-
+			<th>prenom</th>
+			<th>adresse</th>
+			<th>code postal</th>
+			<th>ville</th>
+			<th>pays</th>
+			<th>liste des reservations</th>
 		</tr>
-		<c:forEach items="${listeClient}" var="c">
-			<td>${c.nom}</td>
-			<td>${c.numeroTel}</td>
-			<td>${c.numeroFax}</td>
-			<td>${c.email}</td>
+		<c:forEach items="${listePassager}" var="p">
+			<td>${p.nom}</td>
+			<td>${p.prenom}</td>
+			<td>${p.adresse.adresse}</td>
+			<td>${p.adresse.codePostal}</td>
+			<td>${p.adresse.ville}</td>
+			<td>${p.adresse.pays}</td>
+			<td><a href="./listeReservation?id=${p.id}"><input type="button"
+					value="listeReservation" /></a></td>
 			<td><a href="./edit?id=${c.id}"><input type="button"
 					value="modifier" /></a></td>
 			<td><a href="./delete?id=${c.id}"><input type="button"
@@ -33,7 +39,8 @@
 	</table>
 	<br />
 	<br />
-	<a href="./createClient"><input type="button"
-		value="nouveau client" /></a>
+	<a href="./createPassager"><input type="button"
+		value="nouveau passager" /></a>
 </body>
+
 </html>
