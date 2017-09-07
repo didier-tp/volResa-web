@@ -24,8 +24,10 @@
 <td>${p.id }</td>
 <td>${p.date }</td>
 <td>${p.numero }</td>
-<td>${p.passager.nom }</td>
+<td>${p.passager.nom}</td>
 <td>${p.vol.id }</td>
+<td><a href="./edit?id=${p.id }">modifier</a></td>
+<td><a href="./delete?id=${p.id }"> supprimer</a></td>
 </tr>
 </c:forEach>
 </table>
