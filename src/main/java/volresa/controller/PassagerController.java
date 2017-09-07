@@ -13,11 +13,6 @@ import vol.metier.model.Passager;
 @RequestMapping("/passager")
 public class PassagerController {
 
-	/*
-	 * private long id; private String nom; private String prenom; private Adresse
-	 * adresse; private List<Reservation> reservations; private int version;
-	 */
-
 	@Autowired
 	private PassagerDao daoPassager;
 
@@ -27,18 +22,30 @@ public class PassagerController {
 	}
 
 	@RequestMapping("/delete")
-	public ModelAndView delete(@RequestParam(name = "id", required = true) long id) {
+	public ModelAndView delete(@RequestParam(name = "id", required = true) Long id) {
 		daoPassager.delete(daoPassager.find(id));
 		return new ModelAndView("redirect:list");
 	}
 
 	@RequestMapping("/save")
 	private ModelAndView savePassager(Passager p) {
-		if (p.getId() == -1)
+		if (p.getId() == null)
 			daoPassager.create(p);
 		else
 			daoPassager.update(p);
 		return list();
 	}
+	
+	@RequestMapping("/edit")
+	public ModelAndView editPassager(@RequestParam(name = "id", required = true) Long id) {
+		ModelAndView modelAndView = new ModelAndView("passager/edit");
+		if (id == null) {
+			modelAndView.addObject("passager", new Passager());
+		} else {
+			modelAndView.addObject("passager", daoPassager.find(id));
+		}
+		return modelAndView;
+	}
+	
 
 }
