@@ -6,7 +6,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title><c:choose>
+			<c:when
+				test="${client.getClass().name=='vol.metier.model.ClientMoral' }">
+				Client Moral
+			</c:when>
+			<c:when
+				test="${client.getClass().name=='vol.metier.model.ClientPhysique' }">
+				Client Physique
+			</c:when>
+			<c:when
+				test="${client.getClass().name=='vol.metier.model.ClientEI' }">
+				Client EI
+			</c:when>
+		</c:choose></title>
 </head>
 <body>
 	<table>
@@ -110,6 +123,24 @@
 				<td><form:input path="adresse.pays" /></td>
 				<td><form:errors path="adresse.pays"></form:errors></td>
 			</tr>
+			<tr>
+				<td><form:label path="login.login">Login:</form:label></td>
+				<td><form:input path="login.login" /></td>
+				<td><form:errors path="login.login"></form:errors></td>
+			</tr>
+			<tr>
+				<td><form:label path="login.motDePasse">Password:</form:label></td>
+				<td><form:input path="login.motDePasse" /></td>
+				<td><form:errors path="login.motDePasse"></form:errors></td>
+			</tr>
+			<tr>
+				<td><form:label path="login.admin">Admin:</form:label></td>
+				<td><form:checkbox path="login.admin" /></td>
+				<td><form:errors path="login.admin"></form:errors></td>
+			</tr>
+			<form:hidden path="login.id"/>
+			
+
 
 			<tr>
 				<td colspan="3"><input type="submit" value="enregistrer"></td>

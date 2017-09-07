@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import vol.metier.dao.ClientDao;
+import vol.metier.dao.LoginDao;
 import vol.metier.model.Client;
 import vol.metier.model.ClientEI;
 import vol.metier.model.ClientMoral;
@@ -29,6 +30,9 @@ public class ClientController {
 	@Autowired
 	private ClientDao daoClient;
 
+	@Autowired
+	private LoginDao daoLogin;
+
 	private ModelAndView formClient(Client c) {
 		ModelAndView modelAndView = new ModelAndView("client/edit", "client", c);
 		modelAndView.addObject("civilitesMoral", TitreMoral.values());
@@ -37,10 +41,14 @@ public class ClientController {
 	}
 
 	private ModelAndView saveClient(Client c) {
+		System.out.println("-----------------------------------t------------------------------");
 		if (c.getId() == null) {
 			daoClient.create(c);
+			System.out.println("-----------------------------------t------------------------------");
+			// daoLogin.create(c.getLogin());
 		} else {
 			daoClient.update(c);
+			// daoLogin.update(c.getLogin());
 		}
 		return new ModelAndView("redirect:list");
 	}
