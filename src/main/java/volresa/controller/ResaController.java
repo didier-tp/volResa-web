@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import springMVC2.controller.Eleve;
-import springMVC2.controller.Formateur;
-import springMVC2.controller.Personne;
+import vol.metier.dao.ClientDao;
+import vol.metier.dao.PassagerDao;
 import vol.metier.dao.ReservationDao;
 import vol.metier.model.Reservation;
 
@@ -21,6 +20,10 @@ public class ResaController {
 
 	@Autowired
 	private ReservationDao resaDao;
+	@Autowired
+	private ClientDao clientdao;
+	@Autowired
+	private PassagerDao passagerdao;
 
 	
 	@RequestMapping("/list")
@@ -37,11 +40,13 @@ public class ResaController {
 	
 	@RequestMapping("/edit")
 	public ModelAndView edit(@RequestParam(name="id", required=false) Long id) {
-		if (id == null) {
-			return new ModelAndView("reservation/edit", "uneResa", new Reservation());
-		}else {
-			return new ModelAndView("reservation/edit", "uneResa", resaDao.find(id));
+		ModelAndView modelAndView = new ModelAndView("reservation/edit", "uneResa", new Reservation());
+		modelAndView.addObject("clients", clientdao.findAll());
+		modelAndView.addObject("passagers", passagerdao.findAll());
+		if (id != null) {
+			modelAndView.addObject("uneResa", resaDao.find(id));
 		}
+		return modelAndView;
 	}
 	
 	@RequestMapping("/save")

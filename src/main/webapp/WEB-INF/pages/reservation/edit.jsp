@@ -10,6 +10,32 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1>edit des données</h1>
+<table>
+<form:form modelAttribute="uneResa" action="./save">
+<form:hidden path="version" />
+<form:hidden path="id" />
 
+			<tr>
+				<td><form:label path="numero"> numero:</form:label></td>
+				<td><form:input path="numero" /></td>
+				<td><form:errors path="numero"></form:errors></td>
+			</tr>
+			
+			<tr>
+				<td><form:label path="client.id"> client:</form:label></td>
+				<td><form:select path="client.id" items="${ clients}" itemValue="id" itemLabel="nom" ></form:select></td>
+				<td><form:errors path="client.id"></form:errors></td>
+			</tr>
+			<tr>
+				<td><form:label path="passager.id"> passager:</form:label></td>
+				<td><form:select path="passager.id" items="${ passagers}" itemValue="id" itemLabel="nom" ></form:select></td>
+				<td><form:errors path="passager.id"></form:errors></td>
+			</tr>
+			<tr>
+				<td colspan='3'><input type="submit" value="envoyer" /></td>
+			</tr>
+</form:form>
+</table>
 </body>
 </html>
