@@ -10,8 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vol.metier.dao.PassagerDao;
 import vol.metier.dao.ReservationDao;
+import vol.metier.model.ClientPhysique;
 import vol.metier.model.Passager;
 import vol.metier.model.Reservation;
+import vol.metier.model.TitreMoral;
+import vol.metier.model.TitrePhysique;
 
 @Controller
 @RequestMapping("/passager")
@@ -27,13 +30,20 @@ public class PassagerController {
 	public ModelAndView list() {
 		return new ModelAndView("passager/list", "listePassager", daoPassager.findAll());
 	}
+	
+	@RequestMapping("/createPassager")
+	public ModelAndView createPassager() {
+		return new ModelAndView("passager/edit", "passager", new Passager());
+	}
+	
 
 	@RequestMapping("/delete")
 	public ModelAndView delete(@RequestParam(name = "id", required = true) Long id) {
 		Passager pToDel = daoPassager.find(id);
 		List<Reservation> lR = pToDel.getReservations();
-		for (Reservation r : lR) 
-			daoReservation.delete(r);
+		if (lR.size() > 0)
+			for (Reservation r : lR) 
+				daoReservation.delete(r);
 		daoPassager.delete(pToDel);
 		return new ModelAndView("redirect:list");
 	}
