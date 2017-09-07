@@ -1,0 +1,11 @@
+
+
+
+# misc
+
+*.class
+target
+*.jar
+.project
+.classpath
+.settings
