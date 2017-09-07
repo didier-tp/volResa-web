@@ -1,5 +1,7 @@
 package volresa.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import vol.metier.dao.PassagerDao;
+import vol.metier.dao.ReservationDao;
 import vol.metier.model.Passager;
+import vol.metier.model.Reservation;
 
 @Controller
 @RequestMapping("/passager")
@@ -15,6 +19,9 @@ public class PassagerController {
 
 	@Autowired
 	private PassagerDao daoPassager;
+	
+	@Autowired
+	private ReservationDao daoReservation;
 
 	@RequestMapping("/list")
 	public ModelAndView list() {
@@ -23,7 +30,11 @@ public class PassagerController {
 
 	@RequestMapping("/delete")
 	public ModelAndView delete(@RequestParam(name = "id", required = true) Long id) {
-		daoPassager.delete(daoPassager.find(id));
+		Passager pToDel = daoPassager.find(id);
+		List<Reservation> lR = pToDel.getReservations();
+		for (Reservation r : lR) 
+			daoReservation.delete(r);
+		daoPassager.delete(pToDel);
 		return new ModelAndView("redirect:list");
 	}
 
